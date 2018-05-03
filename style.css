@@ -1,0 +1,58 @@
+#wrapper {
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+#top_wrapper {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#table_div, #play_div {
+    margin: 0 auto;
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: top;
+}
+
+#table_div table {
+    width: 100%;
+}
+
+#play_div {
+    text-align: center;
+    margin-left: 8%;
+}
+
+#move_notation {
+    margin-top: 5px;
+}
+
+#info_label {
+    margin-top: 5px;
+}
+
+#difficulty_text, #difficulty_value_label {
+    display: inline-block;
+    position: relative;
+    top: -6px;
+}
+
+#previous_move_container {
+    display: inline-block;
+    position: relative;
+    top: -4px;
+}
+
+#difficulty_value_label {
+    margin-left: 5px;
+}
+
+#difficulty_slider {
+    display: inline-block;
+    width: 10%;
+    margin-left: 5px;
+    margin-top: 10px;
+}

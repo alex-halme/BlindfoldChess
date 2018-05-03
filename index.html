@@ -1,0 +1,50 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.2/chess.js"></script>
+  <script src="http://requirejs.org/docs/release/2.2.0/minified/require.js"></script>
+  <script type="text/javascript" src="app.js"></script>
+  <script src="stockfish.js/stockfish.js-master/src/stockfish.js"></script>
+</head>
+
+<body>
+    <div id="top_wrapper">
+        <input value="White" type="submit" id="white_button"></input>
+        <input value="Black" type="submit" id="black_button"></input>
+        <input value="Play again" type="submit" id="new_game_button"></input><br/>
+        <text id="difficulty_text">Difficulty:</text>
+        <input id="difficulty_slider" type="range" min="1" max="10" step="1"  value="2">      
+        <label id="difficulty_value_label">2</label>
+    </div>
+    <div id="wrapper">
+    <div id="table_div">
+      <table class="table" id="move_table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">White</th>
+            <th scope="col">Black</th>
+          </tr>
+        </thead>
+        <tbody id="table_body">
+          
+        </tbody>
+      </table>
+    </div>
+    <div id="play_div">
+        Turn: <label id="turn_label">White</label><br/>
+        <container id="previous_move_container">Previous move: <label id="last_move_label"></label></container><br/>    
+        <input name="notation" type="text" maxlength="6" id="move_notation"/><br/>
+        <label id="info_label"></label></br>
+    </div>
+    </div>
+</body>
+
+</html>
