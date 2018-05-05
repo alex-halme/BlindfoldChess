@@ -1,5 +1,6 @@
-$(document).ready(function() {
 
+document.addEventListener('DOMContentLoaded', function() {
+    
     var move_count = 1;
     var is_game_running = true;
     var chess = new Chess();
@@ -9,11 +10,11 @@ $(document).ready(function() {
 
     send('uci');
 
-    $('#move_notation').keypress(function(e) {
+    document.getElementById('move_notation').onkeypress = function (e) {
         if (e.which == 13 && is_game_running && player_color == chess.turn()) {
 
-            var move = $(this).val();
-            $(this).val('');
+            var move = this.value;
+            this.value = "";
 
             if (update_game(move)) {
                 if (is_game_running) {
@@ -21,27 +22,43 @@ $(document).ready(function() {
                 }
             }
         }
+    };
+
+
+    [].forEach.call(document.querySelectorAll('#new_game_button'), function(el) {
+        el.addEventListener('click', function() {
+            reset();
+        })
     });
 
-    $('#new_game_button').click(function() {
-        reset();
+
+    [].forEach.call(document.querySelectorAll('#white_button'), function(el) {
+        el.addEventListener('click', function() {
+            player_color = 'w';
+            reset();
+        })
     });
 
-    $('#white_button').click(function() {
-        player_color = 'w';
-        reset();
+
+    [].forEach.call(document.querySelectorAll('#black_button'), function(el) {
+        el.addEventListener('click', function() {
+            player_color = 'b';
+            reset();
+            computer_turn();
+        })
     });
 
-    $('#black_button').click(function() {
-        player_color = 'b';
-        reset();
-        computer_turn();
+
+    [].forEach.call(document.querySelectorAll('#difficulty_slider'), function(el) {
+        el.addEventListener('click', function() {
+
+            document.getElementById('difficulty_value_label').textContent = this.value;
+
+            depth = get_depth_for_difficulty(this.value)
+
+        })
     });
 
-    $("#difficulty_slider").change(function () {
-        $('#difficulty_value_label').text($(this).val());
-        depth = get_depth_for_difficulty($(this).val());
-    });
 
     stockfish.onmessage = function(event) {
         if (String(event).includes('bestmove')) {
@@ -57,12 +74,17 @@ $(document).ready(function() {
     function update_game(move) {
         if (chess.moves().includes(move)) {
             info('');
-            $('#last_move_label').text(move);
+
+            document.getElementById('last_move_label').textContent = move;
 
             if (chess.turn() == 'w') {
+
                 $("#move_table").find('tbody').append('<tr><th scope="row">' + move_count + '</th><td>' + move + '</td><td id="black_move_'+ move_count+ '"></td>');
+
             } else if (chess.turn() == 'b') {
-                $('#black_move_' + move_count).text(move);
+
+                document.getElementById('black_move_' + move_count).textContent = move;
+
                 move_count++;
             }
 
@@ -79,7 +101,8 @@ $(document).ready(function() {
                 is_game_running = !is_game_running;
             }
 
-            $('#turn_label').text(turnName(chess.turn()));
+            document.getElementById('turn_label').textContent = turnName(chess.turn());
+
             return true;
         } else {
             info('Invalid move');
@@ -101,14 +124,18 @@ $(document).ready(function() {
         is_game_running = true;
         chess.reset();
         info('');
-        $("#table_body").empty();
-        $('#last_move_label').text('');
-        $('#turn_label').text(turnName(chess.turn()));
+
+        var emptEl = document.getElementById('table_body')
+        while(emptEl.firstChild) emptEl.removeChild(emptEl.firstChild)
+
+        document.getElementById('last_move_label').textContent = "";
+        document.getElementById('turn_label').textContent = turnName(chess.turn())
+        
         send('ucinewgame');
     }
 
     function info(text) {
-        $('#info_label').text(text);
+        document.getElementById('info_label').textContent = text;
     }
 
     function get_depth_for_difficulty(difficulty) {
@@ -160,4 +187,4 @@ $(document).ready(function() {
              return "Black";
          } else return "White";
      }
-});
+  });
